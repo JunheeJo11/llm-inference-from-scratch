@@ -8,13 +8,13 @@
 ## 단계별 결과
 | 단계 | 주요 설정 | 최종 train loss | 최종 val loss | 영상 값 (참고) |
 |---|---|---|---|---|
-| bigram | lr 1e-2, 3000 스텝 | | | 기록 안함 |
-| + single head attention | n_embd 32, block 8, lr 1e-3, 5000 스텝 | 기록 안함 | 기록 안함 | 기록 안함 |
-| + multi-head (4 head) | | | | 기록 안함 |
-| + feedforward | | | | 기록 안함 |
-| + residual, block 3개 | | | | 기록 안함 |
-| + LayerNorm | | | | 기록 안함 |
-| 최종 (scale up) | n_embd 384, 6 layers, 6 head, block 256, dropout 0.2 | | | 약 1.48 |
+| bigram | lr 1e-2, 3000 스텝 | 기록 안함 | 기록 안함 | 약 2.5 |
+| + single head attention | n_embd 32, block 8, lr 1e-3, 5000 스텝 | 기록 안함 | 기록 안함 | 약 2.4 |
+| + multi-head (4 head) | | 기록 안함 | 기록 안함 | 약 2.28 |
+| + feedforward | | 기록 안함 | 기록 안함 | 약 2.24 |
+| + residual, block 3개 | | 기록 안함 | 기록 안함 | 약 2.08 |
+| + LayerNorm | | 기록 안함 | 기록 안함 | 약 2.06 |
+| 최종 (scale up) | n_embd 384, 6 layers, 6 head, block 256, dropout 0.2 | 기록 안함 | 기록 안함 | 약 1.48 |
 
 ## 최종 모델
 - 파라미터 수: 10.79 M parameters
