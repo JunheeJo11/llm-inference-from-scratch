@@ -218,3 +218,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# 데이터셋 (용량이 크거나 남이 공개한 데이터라 올리지 않음)
+input.txt

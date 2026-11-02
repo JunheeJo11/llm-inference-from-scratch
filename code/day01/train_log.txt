@@ -1,0 +1,27 @@
+config: batch_size=64, block_size=256, max_iters=5000, eval_interval=500, learning_rate=0.0003, device=cuda, eval_iters=200, n_embed=384, n_head=6, n_layer=6, dropout=0.2
+number of parameters: 10.79 M parameters
+step 0: train loss 4.4753, val loss 4.4709, elapsed 0.2 min
+step 500: train loss 2.0886, val loss 2.1531, elapsed 1.0 min
+step 1000: train loss 1.6610, val loss 1.8269, elapsed 1.9 min
+step 1500: train loss 1.4879, val loss 1.6792, elapsed 2.8 min
+step 2000: train loss 1.3838, val loss 1.6005, elapsed 3.6 min
+step 2500: train loss 1.3148, val loss 1.5560, elapsed 4.5 min
+step 3000: train loss 1.2601, val loss 1.5231, elapsed 5.3 min
+step 3500: train loss 1.2151, val loss 1.5016, elapsed 6.1 min
+step 4000: train loss 1.1772, val loss 1.4915, elapsed 7.0 min
+step 4500: train loss 1.1405, val loss 1.4832, elapsed 7.8 min
+step 4999: train loss 1.1036, val loss 1.4896, elapsed 8.7 min
+training time: 8.7 min (520 s)
+peak GPU memory: 3.43 GB
+
+Boy: meet my heart gracious lord,
+But love you blay; I'll fall back out.
+
+BALTHASAR:
+
+RICHARD:
+Harry be Uother, Hark! you must do well;
+But, I would you sue ob, being, and a thou
+Sit king, and I go presently, and to Salisby,
+A gib axe out the ladies of a stroke,
+Nor striving that a propheth and brow
