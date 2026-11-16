@@ -1,0 +1,7 @@
+{
+  "steps": 20000,
+  "minutes": 27.94,
+  "peak_mem_GiB": 4.14,
+  "params": 16468480,
+  "precision": "bf16"
+}
