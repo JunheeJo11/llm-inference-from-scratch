@@ -1,0 +1,22 @@
+설정: runs/ts_L8/config.json
+NVIDIA GeForce RTX 5070 Ti, torch 2.11.0+cu130, CUDA 13.0
+모델 ts_L8: L=8, d=512, h=16, d_ff=1344, V=10000 | 배치 64 x 길이 256 | bf16 | 워밍업 5, 측정 20
+
+[시간] 단위 ms, 평균 (표준편차)
+     forward:    79.13 (1.26)
+    backward:   163.54 (2.71)
+   optimizer:     8.13 (1.24)
+      세 조각 합:   250.80
+       스텝 전체:   246.40 (1.56)   <- 조각마다 기다리지 않은 값
+  backward / forward = 2.07 (이론적으로 약 2)
+
+[처리량] 66,492 tok/s | 스텝당 약 3.16 TFLOP -> 12.8 TFLOPS | MFU (BF16 스펙 88 대비) 14.6%
+
+[메모리] 파라미터 35,152,384개
+  모델만 올렸을 때      실측  0.132 GiB | 손계산 4P    0.131 GiB
+  스텝 뒤 (P + grad + m + v) 실측  0.545 GiB | 손계산 16P   0.524 GiB
+  스텝 중 최대          실측  9.180 GiB | 손계산 합계 10.401 GiB (fp32 가정)
+  최대 - 16P = 활성값   실측  8.656 GiB | 손계산  9.877 GiB (층당 1.078 GiB)
+  참고: 11/16 학습 summary.json의 최대 메모리 ts_L2 4.14, ts_base 5.92, ts_L8 9.49 GiB
+
+저장: runs/bench/ts_L8_bf16_b64.json

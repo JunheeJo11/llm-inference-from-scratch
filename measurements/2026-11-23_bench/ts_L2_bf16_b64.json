@@ -1,0 +1,50 @@
+{
+  "run": "ts_L2",
+  "precision": "bf16",
+  "config": {
+    "vocab_size": 10000,
+    "context_length": 256,
+    "d_model": 512,
+    "num_layers": 2,
+    "num_heads": 16,
+    "d_ff": 1344,
+    "rope_theta": 10000.0,
+    "batch_size": 64
+  },
+  "params": 16468480,
+  "device": "NVIDIA GeForce RTX 5070 Ti",
+  "torch": "2.11.0+cu130",
+  "warmup": 5,
+  "trials": 20,
+  "ms": {
+    "forward": {
+      "mean": 26.582859049995022,
+      "std": 0.734963302724093
+    },
+    "backward": {
+      "mean": 53.99169000002075,
+      "std": 1.0585329383028765
+    },
+    "optimizer": {
+      "mean": 3.0580319999899075,
+      "std": 1.119606917167353
+    }
+  },
+  "ms_step": {
+    "mean": 84.2414391498096,
+    "std": 2.5268922638425737
+  },
+  "tok_per_s": 194488.60519659144,
+  "tflops": 13.854708528856348,
+  "mem_GiB": {
+    "model": 0.06229591369628906,
+    "after_step": 0.26418352127075195,
+    "peak": 3.835524559020996
+  },
+  "hand_GiB": {
+    "static_16P": 0.24539947509765625,
+    "act_per_layer": 1.078125,
+    "act_total": 3.408203125,
+    "peak": 3.6536026000976562
+  }
+}

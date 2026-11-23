@@ -1,0 +1,50 @@
+설정: runs/ts_base/config.json
+
+===== (1) GPU 시간이 긴 연산 상위 20개 (ts_base, bf16, 3스텝 합계) =====
+------------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                        Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg    # of Calls  
+------------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   1_forward         0.00%       0.000us         0.00%       0.000us       0.000us     131.611ms        33.42%     131.611ms      43.870ms             3  
+                                                   1_forward         1.21%       5.527ms         6.87%      31.415ms      10.472ms       0.000us         0.00%     127.587ms      42.529ms             3  
+                                                   aten::bmm         1.18%       5.377ms         1.87%       8.543ms      25.656us      70.467ms        17.89%      70.467ms     211.614us           333  
+           autograd::engine::evaluate_function: DivBackward0         0.08%     369.789us         0.83%       3.818ms      74.870us       0.000us         0.00%      68.983ms       1.353ms            51  
+                                                   aten::mul         0.61%       2.773ms         1.30%       5.963ms      12.346us      61.632ms        15.65%      61.632ms     127.603us           483  
+                                                DivBackward0         0.06%     267.457us         0.60%       2.728ms      53.481us       0.000us         0.00%      61.145ms       1.199ms            51  
+                                                 aten::copy_         0.57%       2.589ms         1.92%       8.787ms      11.266us      59.854ms        15.20%      59.854ms      76.735us           780  
+                                                aten::einsum         0.34%       1.561ms         3.95%      18.058ms      81.342us       0.000us         0.00%      59.612ms     268.524us           222  
+                                                   aten::div         0.92%       4.224ms         1.29%       5.881ms      24.505us      50.808ms        12.90%      50.808ms     211.702us           240  
+           autograd::engine::evaluate_function: BmmBackward0         0.12%     526.982us         1.42%       6.512ms      58.663us       0.000us         0.00%      46.676ms     420.504us           111  
+                                                BmmBackward0         0.09%     426.566us         1.31%       5.985ms      53.915us       0.000us         0.00%      46.676ms     420.504us           111  
+                                                    aten::to         0.12%     542.870us         1.91%       8.744ms      11.658us       0.000us         0.00%      43.233ms      57.643us           750  
+                                              aten::_to_copy         0.29%       1.325ms         1.79%       8.201ms      15.710us       0.000us         0.00%      43.233ms      82.821us           522  
+void at::native::elementwise_kernel<128, 2, at::native::g...         0.00%       0.000us         0.00%       0.000us       0.000us      41.853ms        10.63%      41.853ms     268.287us           156  
+                                                  aten::add_         0.29%       1.307ms         0.84%       3.851ms       8.853us      41.336ms        10.50%      41.336ms      95.026us           435  
+void at::native::vectorized_elementwise_kernel<4, at::nat...         0.00%       0.000us         0.00%       0.000us       0.000us      32.491ms         8.25%      32.491ms     309.440us           105  
+                                                   aten::exp         0.04%     163.304us         0.18%     800.648us      29.654us      13.220ms         3.36%      27.772ms       1.029ms            27  
+                                           aten::masked_fill         0.03%     156.133us         0.26%       1.177ms      49.048us       0.000us         0.00%      26.995ms       1.125ms            24  
+void at::native::vectorized_elementwise_kernel<4, at::nat...         0.00%       0.000us         0.00%       0.000us       0.000us      25.151ms         6.39%      25.151ms      67.068us           375  
+           autograd::engine::evaluate_function: ExpBackward0         0.01%      60.552us         0.08%     349.470us      23.298us       0.000us         0.00%      24.727ms       1.648ms            15  
+------------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 457.497ms
+Self CUDA time total: 393.797ms
+
+trace 저장: runs/profile/ts_base_bf16_trace.json
+
+===== (2) GPU 커널 종류별 시간 비중 =====
+커널 실행 4272번 (1424번/스텝), GPU 시간 합 179.6 ms/스텝
+  원소별 연산(elementwise)             95.99 ms/스텝   53.5%
+  기타                              48.35 ms/스텝   26.9%
+  행렬 곱(GEMM)                      23.48 ms/스텝   13.1%
+  합, 최댓값 같은 줄이기(reduce)            8.17 ms/스텝    4.6%
+  복사, 초기화                          3.55 ms/스텝    2.0%
+
+===== (3) forward 안에서 모듈별 시간 (CUDA 이벤트, 층 전체 합산) =====
+forward 한 번 평균 37.45 ms (10회 평균, 기울기 기록 끔)
+  block.attn              27.63 ms   73.8%
+  block.ffn                5.11 ms   13.6%
+  lm_head                  2.09 ms    5.6%
+  block.ln1                0.83 ms    2.2%
+  block.ln2                0.81 ms    2.2%
+  ln_final                 0.22 ms    0.6%
+  token_embeddings         0.06 ms    0.2%
+  나머지(잔차 덧셈 등)             0.71 ms    1.9%
