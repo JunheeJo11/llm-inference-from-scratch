@@ -1,0 +1,20 @@
+모델 ts_L8: 층 8, d_model 512, 헤드 16, context 256, 장치 cuda, dtype torch.float32
+
+[1] 캐시 크기 8.00 MiB, 손계산 8.00 MiB: 통과
+
+[2] "Once upon a time" (4토큰) greedy 252 대 252토큰 일치: 통과 
+[3] logits 최대 차이: prefill 구간 9.54e-06, decode 구간 2.10e-05 (가장 큰 위치 160)
+[4] 층별 최대 차이: 층0 1.2e-06, 층1 3.3e-06, 층2 3.8e-06, 층3 7.6e-06, 층4 7.6e-06, 층5 7.6e-06, 층6 7.6e-06, 층7 1.5e-05
+
+[2] "Lily and Tom went to the park." (8토큰) greedy 248 대 248토큰 일치: 통과 
+[3] logits 최대 차이: prefill 구간 1.00e-05, decode 구간 1.72e-05 (가장 큰 위치 91)
+[4] 층별 최대 차이: 층0 1.9e-06, 층1 1.4e-06, 층2 1.9e-06, 층3 1.9e-06, 층4 2.9e-06, 층5 3.8e-06, 층6 7.6e-06, 층7 1.5e-05
+
+[2] "The little dog was very" (5토큰) greedy 251 대 251토큰 일치: 통과 
+[3] logits 최대 차이: prefill 구간 1.05e-05, decode 구간 1.53e-05 (가장 큰 위치 113)
+[4] 층별 최대 차이: 층0 1.4e-06, 층1 8.6e-06, 층2 7.6e-06, 층3 7.6e-06, 층4 1.1e-05, 층5 1.1e-05, 층6 1.1e-05, 층7 1.5e-05
+
+[5] 온도 1, 시드 0으로 100토큰 샘플링 일치: 통과
+    생성 예: Once upon a time there was a bald soldier who liked to buildLittle houses. Everywhere he went, he built up others to know why. He wanted to make the best things in town, so he wanted to increase his ...
+
+정리: greedy 전부 일치 통과, logits 최대 차이 2.10e-05 (1e-4 미만, 계산 순서 차이 수준)
