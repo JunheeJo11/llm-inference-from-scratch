@@ -1,0 +1,13 @@
+모델 ts_base, 배치(슬롯) 4, 요청 12개, 생성 토큰 합 992
+
+[RoPE] 줄마다 다른 위치: 한 번에 계산 (vec)
+[1] RoPE 방식: vec
+[2] 정적 배치: 단독 생성과 일치 12/12 통과
+[3] continuous batching: 단독 생성과 일치 12/12 통과
+
+[4] 정적: decode 467스텝, 슬롯 x 스텝 1868 중 토큰을 만든 칸 980 (52%)
+    continuous: decode 359스텝, 슬롯 x 스텝 1436 중 토큰을 만든 칸 980 (68%), prefill 9번
+
+[5] 시간 (한 번씩, 대략): 하나씩 2665 ms (372 tok/s), 정적 1398 ms (710 tok/s), continuous 1082 ms (917 tok/s)
+
+정리: 정적 통과, continuous 통과
