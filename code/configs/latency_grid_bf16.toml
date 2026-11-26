@@ -1,0 +1,16 @@
+# 길이 격자 측정 (11/26, 원래 11/25 13:00 블록)
+# 실행: uv run python scratch/measure_latency.py configs/latency_grid_bf16.toml
+
+name = "grid_bf16"              # 결과 파일 이름 앞부분
+run = "ts_base"                # runs/ 아래 학습 결과 폴더
+dtype = "bf16"               # "fp32" 또는 "bf16"
+device = "cuda"
+
+modes = ["cache", "nocache"]               # 캐시 있음, 없음 둘 다
+prompt_lens = [4, 32, 64, 128, 192, 240]   # 프롬프트 토큰 수 P
+gen_lens = [16, 64, 128]                   # 생성 토큰 수 n (P + n > 256 인 조합은 스크립트가 건너뜀)
+
+warmup = 2                 # 버리는 실행 수
+repeats = 5                # 재는 실행 수 (평균, 표준편차용)
+
+out_dir = "runs/latency"
