@@ -1,0 +1,28 @@
+# 배치 곡선과 정적 대 continuous 비교 (11/26 13:00 블록)
+# 실행: uv run python scratch/bench_batch.py configs/bench_batch.toml
+
+name = "batch"             # 결과 파일 이름 앞부분
+run = "ts_base"            # runs/ 아래 학습 결과 폴더
+dtype = "fp32"             # "fp32" 또는 "bf16"
+device = "cuda"
+out_dir = "runs/batch"
+
+# ---- 실험 A: 배치 크기 곡선 (모든 슬롯이 같은 길이로 꽉 찬 상태) ----
+[curve]
+batch_sizes = [1, 2, 4, 8, 16, 32, 64, 128, 256]
+prompt_len = 64            # decode 곡선을 잴 때 프롬프트 길이
+decode_steps = 64          # decode 몇 스텝을 재서 평균 낼지
+prefill_lens = [16, 64, 240]   # 배치 prefill 시간(TTFT)을 잴 프롬프트 길이들
+warmup = 2
+repeats = 5
+
+# ---- 실험 B: 길이가 제각각인 요청 묶음으로 정적 대 continuous ----
+[workload]
+num_requests = 256
+prompt_min = 8             # 프롬프트 길이 P는 이 사이에서 무작위
+prompt_max = 128
+gen_min = 16               # 생성 길이 n도 무작위 (P + n <= 256 이 되게 128까지)
+gen_max = 128
+seed = 0                   # 같은 seed면 매번 같은 요청 묶음
+slot_counts = [4, 16, 64]  # 동시에 처리할 슬롯 수 (= 배치 크기)
+repeats = 3
